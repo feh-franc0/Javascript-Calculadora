@@ -1,37 +1,65 @@
 class CalcController {
 
     constructor(){
-        //use o "_" na frente do atributo para ter o acesso privado.
-        //e sempre q o atributo for privado temos que definir os gets e sets do atributo.
-        this._displayCalc  = "0";
+        //use o "_" na frente do atributo para ter o acesso privado e use get e set para os mesmos.
+        this._locale = 'pt-BR';
+        this._displayCalcEl = document.querySelector("#display");
+        this._dateEl = document.querySelector("#data");
+        this._timeEl = document.querySelector("#hora");
         this._currentDate;
         this.initialize();
     }
 
     initialize(){ //método principal do nosso projeto.
+        //setInterval : função executada em um intervalo de tempo, o tempo é marcado em milisegundos.
+        //setTimeout : executa algo apenas uma vez e depois do tempo definido.
 
-        let displayCalcEl = document.querySelector("#display");
-        let dateEl = document.querySelector("#data");
-        let timeEl = document.querySelector("#hora");
-        //innerHTML para manipular o DOM
-        displayCalcEl.innerHTML = "1234";
-        dateEl.innerHTML = "02/12/1998";
-        timeEl.innerHTML = "23:06";
+        this.setDisplayDateTime();
+
+        setInterval(()=>{
+
+            this.setDisplayDateTime();
+
+        }, 1000);
 
     }
 
-    //Os métodos getteres e setteres permitem definir como acessar os valores:
+    setDisplayDateTime(){//sempre que for reutilizar algum codigo,crie um metodo.
+            
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
+            day:"2-digit",
+            month: "long",
+            year: "numeric"
+        });
+        this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
+
+    }    
+
+    get displayTime(){
+        return this._timeEl.innerHTML;
+    }
+    set displayTime(value){
+        return this._timeEl.innerHTML = value;
+    }
+
+    get displayDate(){
+        return this._dateEl.innerHTML;
+    }
+    set displayDate(value){
+        return this._dateEl.innerHTML = value;
+    }
+
     get displayCalc(){ //get é para saber o que vai ser dovolvido toda vez que chamarmos.
-        return this._displayCalc;
+        return this._displayCalcEl.innerHTML;
     }
-    set displayCalc(valor){ //set é para salvarmos/mudarmos o valor do que desejarmos:
-        this._displayCalc = valor;
+    set displayCalc(value){ //set é para salvarmos/mudarmos o valor do que desejarmos:
+        this._displayCalcEl.innerHTML = value;
     }
 
     get currentDate(){
-        return this._currentDate;
+        return new Date();
     }
-    set currentDate(valor){
-        this._currentDate = valor;
+    set currentDate(value){
+        this._currentDate = value;
     }
 }
