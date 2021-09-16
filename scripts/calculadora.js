@@ -1,3 +1,1 @@
-//instancia da class CalcController = (objeto representa a class)
-let calculadora = new CalcController
-console.log("teste");
+let calculadora = new CalcController(); //instancia da class CalcController = (objeto representa a class)
