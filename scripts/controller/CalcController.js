@@ -193,7 +193,7 @@ class CalcController {
             }else{
 
                 let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseFloat(newValue));
+                this.setLastOperation(newValue);
 
                 //atualizar display
                 this.setLastNumberToDisplay();
@@ -212,6 +212,8 @@ class CalcController {
     addDot(){
 
         let lastOperation = this.getLastOperation();
+
+        if(typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1)return;
 
         if (this.isOperator(lastOperation) || !lastOperation){
             this.pushOperation('0.');
